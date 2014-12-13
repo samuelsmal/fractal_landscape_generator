@@ -21,6 +21,10 @@ import com.sun.j3d.utils.geometry.NormalGenerator;
 
 
 public class RenderLandscape {
+	public static Shape3D createLandscape(double[][] map) {
+		return renderLandscape(getTriangles(map));
+	}
+	
 
     /**
      *
@@ -28,7 +32,7 @@ public class RenderLandscape {
      * @return
      */
     public static Shape3D renderLandscape(List<Triangle> triangles) {
-        TriangleArray landscape = new TriangleArray(triangles.size() - 1, TriangleArray.COORDINATES);
+        TriangleArray landscape = new TriangleArray((triangles.size() - 1) * 3, TriangleArray.COORDINATES);
         for (int i = 0; i < triangles.size(); i += 3) {
             landscape.setCoordinate(i, triangles.get(i).getCoordinate1());
             landscape.setCoordinate(i + 1, triangles.get(i).getCoordinate2());
@@ -65,7 +69,7 @@ public class RenderLandscape {
      * @param map
      * @return
      */
-    public List<Triangle> getTriangles(double[][] map) {
+    public static List<Triangle> getTriangles(double[][] map) {
 
         List<Triangle> ret = new ArrayList<>();
 

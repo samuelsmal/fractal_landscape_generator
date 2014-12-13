@@ -11,6 +11,9 @@ import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
+import flg.algorithm.DiamondSquare;
+import flg.rendering.RenderLandscape;
+
 
 public class StartingPoint {
 
@@ -23,8 +26,12 @@ public class StartingPoint {
 
 //        Transform3D cc3d = new Transform3D();
 
-
-//        group.addChild(RenderLandscape.renderLandscape(triangles));
+        double[][] map = new double[4][4];
+        map[0][0] = map[0][3] = map[3][0] = map[3][3] = 12.0d;
+       
+        DiamondSquare.applyDiamondSquare(map, 0.4d);
+        
+        group.addChild(RenderLandscape.createLandscape(map));
 
 
 //        cc3d.setTranslation(new Vector3f (0.8f ,1.0f ,-2.0f ));
