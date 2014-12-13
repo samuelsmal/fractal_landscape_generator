@@ -79,22 +79,19 @@ public class RenderLandscape {
         }
 
         for (int x = 0; x < map.length; x++) {
-            Triangle triangle;
             if (x % 2 == 0) {
                 for (int y = 0; y < (map[x].length - 1); y++) {
                     Point3d coordinate1 = new Point3d(x, y, map[x][y]);
                     Point3d coordinate2 = new Point3d(x, y + 1, map[x][y + 1]);
                     Point3d coordinate3 = new Point3d(x + 1, y, map[x + 1][y]);
-                    triangle = new Triangle(coordinate1, coordinate2, coordinate3);
-                    ret.add(triangle);
+                    ret.add(new Triangle(coordinate1, coordinate2, coordinate3));
                 }
             } else {
                 for (int y = 1; y < map[x].length; y++) {
                     Point3d coordinate1 = new Point3d(x, y, map[x][y]);
                     Point3d coordinate2 = new Point3d(x, y - 1, map[x][y - 1]);
                     Point3d coordinate3 = new Point3d(x - 1, y, map[x - 1][y]);
-                    triangle = new Triangle(coordinate1, coordinate2, coordinate3);
-                    ret.add(triangle);
+                    ret.add(new Triangle(coordinate1, coordinate2, coordinate3));
                 }
             }
         }

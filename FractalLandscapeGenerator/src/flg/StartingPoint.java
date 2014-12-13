@@ -40,19 +40,19 @@ public class StartingPoint {
 //        group.addChild(cctg);
 
         // above pyramid
-        Vector3f viewTranslation = new Vector3f();
-        viewTranslation.z = 3;
-        viewTranslation.x = 0f;
-        viewTranslation.y = .3f;
-        Transform3D viewTransform = new Transform3D();
-        viewTransform.setTranslation(viewTranslation);
-        Transform3D rotation = new Transform3D();
-        rotation.rotX(-Math.PI / 12.0d);
-        rotation.mul(viewTransform);
-        universe.getViewingPlatform().getViewPlatformTransform().setTransform(
-                rotation);
-        universe.getViewingPlatform().getViewPlatformTransform().getTransform(
-                viewTransform);
+//        Vector3f viewTranslation = new Vector3f();
+//        viewTranslation.z = 3f;
+//        viewTranslation.x = 3f;
+//        viewTranslation.y = 3f;
+//        Transform3D viewTransform = new Transform3D();
+//        viewTransform.setTranslation(viewTranslation);
+//        Transform3D rotation = new Transform3D();
+//        rotation.rotX(-Math.PI / 8.0d);
+//        rotation.mul(viewTransform);
+//        universe.getViewingPlatform().getViewPlatformTransform().setTransform(
+//                rotation);
+//        universe.getViewingPlatform().getViewPlatformTransform().getTransform(
+//                viewTransform);
 
         // lights
         BoundingSphere bounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),
@@ -69,7 +69,7 @@ public class StartingPoint {
 
         universe.addBranchGraph(group);
 
-//        universe.getViewingPlatform().setNominalViewingTransform();
+        universe.getViewingPlatform().setNominalViewingTransform();
 
 
     }
