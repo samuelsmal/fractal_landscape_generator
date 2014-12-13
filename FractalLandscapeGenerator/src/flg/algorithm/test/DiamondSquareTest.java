@@ -1,10 +1,9 @@
-package flg;
+package flg.algorithm.test;
 
 import flg.algorithm.DiamondSquare;
 
-public class StartingPoint {
-
-	public static void main(String[] args) {
+public class DiamondSquareTest {
+	public static void runTest() {
 		double[][] points = new double[5][5];
 		
 		points[0][0] = 13d;
