@@ -11,8 +11,6 @@ import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
-import flg.rendering.RenderLandscape;
-
 
 public class StartingPoint {
 
@@ -26,7 +24,7 @@ public class StartingPoint {
 //        Transform3D cc3d = new Transform3D();
 
 
-        group.addChild(RenderLandscape.createLand2s());
+//        group.addChild(RenderLandscape.renderLandscape(triangles));
 
 
 //        cc3d.setTranslation(new Vector3f (0.8f ,1.0f ,-2.0f ));

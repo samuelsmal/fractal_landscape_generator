@@ -1,6 +1,8 @@
 package flg.rendering;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.media.j3d.Appearance;
 import javax.media.j3d.GeometryArray;
@@ -12,7 +14,7 @@ import javax.media.j3d.TextureAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
-import javax.vecmath.Point3f;
+import javax.vecmath.Point3d;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 import com.sun.j3d.utils.geometry.NormalGenerator;
@@ -20,25 +22,20 @@ import com.sun.j3d.utils.geometry.NormalGenerator;
 
 public class RenderLandscape {
 
-    public void render(double[][] map) {
+    /**
+     *
+     * @param triangles
+     * @return
+     */
+    public static Shape3D renderLandscape(List<Triangle> triangles) {
+        TriangleArray landscape = new TriangleArray(triangles.size() - 1, TriangleArray.COORDINATES);
+        for (int i = 0; i < triangles.size(); i += 3) {
+            landscape.setCoordinate(i, triangles.get(i).getCoordinate1());
+            landscape.setCoordinate(i + 1, triangles.get(i).getCoordinate2());
+            landscape.setCoordinate(i + 2, triangles.get(i).getCoordinate3());
+        }
 
-    }
-
-    public static Shape3D createLand2s() {
-        Point3f e = new Point3f(1.0f, 0.0f, 0.0f); // east
-        Point3f s = new Point3f(0.0f, 0.0f, 1.0f); // south
-        Point3f w = new Point3f(-1.0f, 0.0f, 0.0f); // west
-        Point3f n = new Point3f(0.0f, 0.0f, -1.0f); // north
-        Point3f t = new Point3f(0.0f, 0.721f, 0.0f); // top
-
-        TriangleArray pyramidGeometry = new TriangleArray(3,
-                TriangleArray.COORDINATES);
-        pyramidGeometry.setCoordinate(0, e);
-        pyramidGeometry.setCoordinate(1, t);
-        pyramidGeometry.setCoordinate(2, s);
-
-
-        GeometryInfo geometryInfo = new GeometryInfo(pyramidGeometry);
+        GeometryInfo geometryInfo = new GeometryInfo(landscape);
         NormalGenerator ng = new NormalGenerator();
         ng.generateNormals(geometryInfo);
 
@@ -62,7 +59,42 @@ public class RenderLandscape {
         return new Shape3D(result, appearance);
     }
 
-    public Triangle[] getTriangles(double[][] map) {
+    /**
+     * Creates a list of Triangles from a square grid.
+     *
+     * @param map
+     * @return
+     */
+    public List<Triangle> getTriangles(double[][] map) {
 
+        List<Triangle> ret = new ArrayList<>();
+
+        if ((map.length % 2 != 0) && (map[0].length % 2 != 0)) {
+            System.err.println("Grid size must be even.");
+            System.exit(1);
+        }
+
+        for (int x = 0; x < map.length; x++) {
+            Triangle triangle;
+            if (x % 2 == 0) {
+                for (int y = 0; y < (map[x].length - 1); y++) {
+                    Point3d coordinate1 = new Point3d(x, y, map[x][y]);
+                    Point3d coordinate2 = new Point3d(x, y + 1, map[x][y + 1]);
+                    Point3d coordinate3 = new Point3d(x + 1, y, map[x + 1][y]);
+                    triangle = new Triangle(coordinate1, coordinate2, coordinate3);
+                    ret.add(triangle);
+                }
+            } else {
+                for (int y = 1; y < map[x].length; y++) {
+                    Point3d coordinate1 = new Point3d(x, y, map[x][y]);
+                    Point3d coordinate2 = new Point3d(x, y - 1, map[x][y - 1]);
+                    Point3d coordinate3 = new Point3d(x - 1, y, map[x - 1][y]);
+                    triangle = new Triangle(coordinate1, coordinate2, coordinate3);
+                    ret.add(triangle);
+                }
+            }
+        }
+
+        return ret;
     }
 }
