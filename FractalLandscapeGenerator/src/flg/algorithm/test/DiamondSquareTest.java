@@ -9,9 +9,9 @@ public class DiamondSquareTest {
 		points[0][0] = 13d;
 		points[0][4] = -12.232d;
 		points[4][0] = 0.1213d;
-		points[4][4] = -112232.d;
+		points[4][4] = -120.d;
 		
-		DiamondSquare.applyDiamondSquare(points, 0.12d);
+		DiamondSquare.applyDiamondSquare(points, 0.8d);
 		
 		for (int i = 0; i < 5; ++i) {
 			for (int j = 0; j < 5; ++j) {

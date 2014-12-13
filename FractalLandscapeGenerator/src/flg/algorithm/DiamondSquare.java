@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class DiamondSquare {
-	
-	
+	/**
+	 * 
+	 * @param points
+	 * @param roughness > 0 && < 1 
+	 */
 	public static void applyDiamondSquare(double[][] points, double roughness) {
+		Random rand = new Random();
+		
 		for (int i = points.length / 2; i > 0; --i) {
-			diamondStep(points, roughness, i);
-			squareStep(points, roughness, i);
+			diamondStep(points, rand, roughness, i);
+			squareStep(points, rand, roughness, i);
 			
-			randomNumber(roughness);
-			
-			//roughness /= 2;
+			roughness /= 2;
 		}
 	}
 	
-	private static void diamondStep(double[][] points, double roughness, int length) {
+	private static void diamondStep(double[][] points, Random rand, double roughness, int length) {
 		for (int i = 0; i < points.length; ++i) {
 			for (int j = 0; j < points.length; ++j) {
 				ArrayList<Double> parentValues = new ArrayList<Double>();
@@ -42,12 +45,12 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(parentValues) + randomNumber(roughness);
+				points[i][j] = average(parentValues) + (rand.nextDouble() - 0.5d)*roughness;
 			}
 		}
 	}
 	
-	private static void squareStep(double[][] points, double roughness, int length) {
+	private static void squareStep(double[][] points, Random rand, double roughness, int length) {
 		
 		for (int i=0;i<points.length;++i){
 			for(int j=0; j<points.length;++j){
@@ -73,23 +76,10 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(values) + randomNumber(roughness);
+				points[i][j] = average(values) + (rand.nextDouble() - 0.5d)*roughness;
 			}
 		}
 	}
-	
-	private static double randomNumber(double roughness){
-		
-		Random rand = new Random();
-		
-		if ((random <= roughness) && (random >= ((-1) * roughness))){
-			return random;
-		} else {
-		    return roughness/2;
-		}
-	}
-	
-	
 	
 	private static Double average(ArrayList<Double> l) {
 		Double sum = 0d;
