@@ -31,7 +31,7 @@ public class RenderLandscape {
      * @param triangles
      * @return
      */
-    public static Shape3D renderLandscape(List<Triangle> triangles) {
+    private static Shape3D renderLandscape(List<Triangle> triangles) {
         TriangleArray landscape = new TriangleArray((triangles.size() - 1) * 3, TriangleArray.COORDINATES);
         for (int i = 0; i < triangles.size(); i += 3) {
             landscape.setCoordinate(i, triangles.get(i).getCoordinate1());
@@ -69,7 +69,7 @@ public class RenderLandscape {
      * @param map
      * @return
      */
-    public static List<Triangle> getTriangles(double[][] map) {
+    private static List<Triangle> getTriangles(double[][] map) {
 
         List<Triangle> ret = new ArrayList<>();
 
