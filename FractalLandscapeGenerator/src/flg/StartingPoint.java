@@ -14,6 +14,7 @@ import javax.vecmath.Vector3f;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
 import flg.algorithm.DiamondSquare;
+import flg.algorithm.Map;
 import flg.rendering.HeatMap;
 import flg.rendering.RenderLandscape;
 
@@ -22,10 +23,11 @@ public class StartingPoint {
 
     public static void main(String[] args) {
         int dim = 300;
-        float[][] map = new float[dim][dim];
-        map[0][0] = map[0][dim - 1] = map[dim - 1][0] = map[dim - 1][dim - 1] = 12.0f;
-
-        DiamondSquare.applyDiamondSquare(map, 2.4f);
+//        float[][] map = Map.hillCenterMap(dim, 0f, 12f);
+        
+        
+        float[][] map = Map.hillCenterMap(dim, 144f, 12f);
+        DiamondSquare.applyDiamondSquare(map, 3.7f);
 
         // Heat Map
         HeatMap heatmap = new HeatMap(map);

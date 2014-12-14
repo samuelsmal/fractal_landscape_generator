@@ -7,7 +7,7 @@ public class DiamondSquare {
 	/**
 	 * 
 	 * @param points
-	 * @param roughness > 0 && < 1 
+	 * @param roughness
 	 */
 	public static void applyDiamondSquare(float[][] points, float roughness) {
 		Random rand = new Random();
@@ -16,7 +16,7 @@ public class DiamondSquare {
 			diamondStep(points, rand, roughness, i);
 			squareStep(points, rand, roughness, i);
 			
-			roughness *= 0.99998;
+			roughness *= 0.998f;
 		}
 	}
 	
@@ -45,13 +45,12 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(parentValues) + (rand.nextFloat() - 0.5f)*roughness;
+				points[i][j] = average(parentValues) + (rand.nextFloat() - 0.5f) * roughness;
 			}
 		}
 	}
 	
 	private static void squareStep(float[][] points, Random rand, float roughness, int length) {
-		
 		for (int i=0;i<points.length;++i){
 			for(int j=0; j<points.length;++j){
 				ArrayList<Float> values = new ArrayList<Float>();
@@ -76,7 +75,7 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(values) + (rand.nextFloat() - 0.5f)*roughness;
+				points[i][j] = average(values) + (rand.nextFloat() - 0.5f) * roughness;
 			}
 		}
 	}
