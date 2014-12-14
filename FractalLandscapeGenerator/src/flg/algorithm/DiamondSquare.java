@@ -9,21 +9,21 @@ public class DiamondSquare {
 	 * @param points
 	 * @param roughness > 0 && < 1 
 	 */
-	public static void applyDiamondSquare(double[][] points, double roughness) {
+	public static void applyDiamondSquare(float[][] points, float roughness) {
 		Random rand = new Random();
 		
 		for (int i = points.length / 2; i > 0; --i) {
 			diamondStep(points, rand, roughness, i);
 			squareStep(points, rand, roughness, i);
 			
-			roughness /= 2;
+//			roughness /= 2;
 		}
 	}
 	
-	private static void diamondStep(double[][] points, Random rand, double roughness, int length) {
+	private static void diamondStep(float[][] points, Random rand, float roughness, int length) {
 		for (int i = 0; i < points.length; ++i) {
 			for (int j = 0; j < points.length; ++j) {
-				ArrayList<Double> parentValues = new ArrayList<Double>();
+				ArrayList<Float> parentValues = new ArrayList<Float>();
 				
 				if (i >= length / 2) {
 					if (j >= length / 2) {
@@ -45,16 +45,16 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(parentValues) + (rand.nextDouble() - 0.5d)*roughness;
+				points[i][j] = average(parentValues) + (rand.nextFloat() - 0.5f)*roughness;
 			}
 		}
 	}
 	
-	private static void squareStep(double[][] points, Random rand, double roughness, int length) {
+	private static void squareStep(float[][] points, Random rand, float roughness, int length) {
 		
 		for (int i=0;i<points.length;++i){
 			for(int j=0; j<points.length;++j){
-				ArrayList<Double> values = new ArrayList<Double>();
+				ArrayList<Float> values = new ArrayList<Float>();
 			
 				if (i >= length) {
 					if (j >= length) {
@@ -76,15 +76,15 @@ public class DiamondSquare {
 					}
 				}
 				
-				points[i][j] = average(values) + (rand.nextDouble() - 0.5d)*roughness;
+				points[i][j] = average(values) + (rand.nextFloat() - 0.5f)*roughness;
 			}
 		}
 	}
 	
-	private static Double average(ArrayList<Double> l) {
-		Double sum = 0d;
+	private static Float average(ArrayList<Float> l) {
+		Float sum = 0f;
 		
-		for (Double i : l) {
+		for (Float i : l) {
 			sum += i;
 		}
 		
