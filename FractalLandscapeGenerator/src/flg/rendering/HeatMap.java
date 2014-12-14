@@ -28,25 +28,30 @@ extends JPanel {
             for (int j = 0; j < this.heights[i].length; j++) {
                 float height = this.heights[i][j];
 
-                if (height <= -2) {
-                    g.setColor(Color.decode("#06109a")); // dark blue
-                } else if (height > -2 && height <= -1.5) {
-                    g.setColor(Color.decode("#414df6")); // brighter blue
-                } else if (height > -1.5 && height <= 0.5) {
-                    g.setColor(Color.decode("#10b223")); // dark green
-                } else if (height > 0.5 && height <= 1.6) {
-                    g.setColor(Color.decode("#2eea1c")); // brighter green
-                } else if (height > 1.6 && height <= 2.75) {
-                    g.setColor(Color.GRAY);
-                } else if (height > 2.75) {
-                    g.setColor(Color.WHITE);
-                }
-
-
                 int x = PIXEL_SIZE * i;
                 int y = PIXEL_SIZE * j;
 
-                g.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
+                if (height <= -2) {
+                    g.setColor(Color.decode("#06109a")); // dark blue
+                    g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, false);
+                } else if (height > -2 && height <= -1.5) {
+                    g.setColor(Color.decode("#414df6")); // brighter blue
+                    g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, false);
+                } else if (height > -1.5 && height <= 0) {
+                    g.setColor(Color.decode("#10b223")); // dark green
+                    g.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
+                } else if (height > 0 && height <= 1.6) {
+                    g.setColor(Color.decode("#2eea1c")); // brighter green
+                    g.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
+                } else if (height > 1.6 && height <= 2.75) {
+                    g.setColor(Color.GRAY);
+                    g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, true);
+                } else if (height > 2.75) {
+                    g.setColor(Color.WHITE);
+                    g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, true);
+                }
+
+
             }
         }
     }

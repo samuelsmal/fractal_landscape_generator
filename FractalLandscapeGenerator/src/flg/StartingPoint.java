@@ -22,7 +22,7 @@ public class StartingPoint {
 
     public static void main(String[] args) {
 
-        int dim = 100;
+        int dim = 300;
         float[][] map = new float[dim][dim];
         map[0][0] = map[0][dim - 1] = map[dim - 1][0] = map[dim - 1][dim - 1] = 12.0f;
 
@@ -32,11 +32,13 @@ public class StartingPoint {
         HeatMap heatmap = new HeatMap(map);
 
         JFrame top = new JFrame("HeatMap");
-        top.setBounds(200, 50, HeatMap.PIXEL_SIZE * map.length, HeatMap.PIXEL_SIZE * map[0].length);
+        top.setBounds(0, 0, HeatMap.PIXEL_SIZE * map.length, HeatMap.PIXEL_SIZE * map[0].length);
         top.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         top.setResizable(true);
         top.getContentPane().add(heatmap);
         top.setVisible(true);
+
+
 
         // Java 3D Model
         SimpleUniverse universe = new SimpleUniverse();
@@ -54,16 +56,16 @@ public class StartingPoint {
         Vector3f viewTranslation = new Vector3f();
         viewTranslation.x = -(float) dim * 40;
         viewTranslation.y = (float) dim * 40;
-//        viewTranslation.z = - 30;
+        // viewTranslation.z = - 30;
         Transform3D viewTransform = new Transform3D();
         viewTransform.setTranslation(viewTranslation);
         universe.getViewingPlatform().getViewPlatformTransform().setTransform(viewTransform);
 
         Transform3D rotation = new Transform3D();
         rotation.rotX(Math.PI / 2.5d);
-//        rotation.rotY(Math.PI / 121d);
-//        rotation.rotZ(-Math.PI / 22.0d);
-//        rotation.mul(viewTransform);
+        // rotation.rotY(Math.PI / 121d);
+        // rotation.rotZ(-Math.PI / 22.0d);
+        // rotation.mul(viewTransform);
         universe.getViewingPlatform().getViewPlatformTransform().setTransform(rotation);
 
 
@@ -84,7 +86,7 @@ public class StartingPoint {
 
         universe.addBranchGraph(group);
 
-//        universe.getViewingPlatform().setNominalViewingTransform();
+        // universe.getViewingPlatform().setNominalViewingTransform();
 
 
     }
