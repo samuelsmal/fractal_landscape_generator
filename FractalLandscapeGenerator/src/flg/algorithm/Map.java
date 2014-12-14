@@ -6,7 +6,7 @@ public class Map {
 		
         map[0][0] = map[0][dim - 1] = map[dim - 1][0] = map[dim - 1][dim - 1] = corner;
         
-        int numberOfElements = dim / 10;
+        int numberOfElements = 10;
         
         for (int i = - numberOfElements / 2; i < numberOfElements / 2; ++i) {
         	for (int j = - numberOfElements / 2; j < numberOfElements / 2; ++j) {
