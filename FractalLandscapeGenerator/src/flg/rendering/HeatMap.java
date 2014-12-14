@@ -11,7 +11,7 @@ extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public final static int   PIXEL_SIZE       = 5;
+    public final static int   PIXEL_SIZE       = 3;
 
     private float[][]         heights;
 
@@ -29,10 +29,16 @@ extends JPanel {
                 float height = this.heights[i][j];
 
                 if (height <= -2) {
-                    g.setColor(Color.BLUE);
-                } else if (height > -2 && height < 2) {
-                    g.setColor(Color.GREEN);
-                } else if (height >= 2) {
+                    g.setColor(Color.decode("#06109a")); // dark blue
+                } else if (height > -2 && height <= -1.5) {
+                    g.setColor(Color.decode("#414df6")); // brighter blue
+                } else if (height > -1.5 && height <= 0.5) {
+                    g.setColor(Color.decode("#10b223")); // dark green
+                } else if (height > 0.5 && height <= 1.6) {
+                    g.setColor(Color.decode("#2eea1c")); // brighter green
+                } else if (height > 1.6 && height <= 2.75) {
+                    g.setColor(Color.GRAY);
+                } else if (height > 2.75) {
                     g.setColor(Color.WHITE);
                 }
 
