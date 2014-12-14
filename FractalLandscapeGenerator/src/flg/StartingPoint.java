@@ -38,21 +38,6 @@ public class StartingPoint {
         
         group.addChild(RenderLandscape.createLandscape(map));
 
-//		group.addChild(Pyramid.createPyramid());
-        
-//        List<Triangle> triangles = new ArrayList<Triangle>();
-//        
-//        Point3f ul = new Point3f(0.0f, 0.0f, -1.0f);
-//        Point3f ur = new Point3f(0.0f, 1.0f, 0.5f);
-//        Point3f ll = new Point3f(-1.0f, 0.0f, 0.0f);
-//        Point3f lr = new Point3f(1.0f, 1.0f, 0.2f);
-//        
-//        triangles.add(new Triangle(ul, ur, ll));
-//        triangles.add(new Triangle(ll, ur, lr));
-//        
-//        group.addChild(RenderLandscape.renderLandscape(triangles));
-        
-        //group.addChild(RenderLandscape.createLandscape(Pyramid.pyramidDataPoints()));
 		
       	TransformGroup cctg = new TransformGroup();
       	Transform3D cc3d = new Transform3D();
@@ -62,19 +47,20 @@ public class StartingPoint {
 
         // above pyramid
         Vector3f viewTranslation = new Vector3f();
-        viewTranslation.z = -3f;
-        viewTranslation.x = 0f;
-        viewTranslation.y = .3f;
+        viewTranslation.x = -(float)dim * 40;
+        viewTranslation.y = (float)dim * 40;
+//        viewTranslation.z = - 30;
         Transform3D viewTransform = new Transform3D();
         viewTransform.setTranslation(viewTranslation);
+        universe.getViewingPlatform().getViewPlatformTransform().setTransform(viewTransform);
+        
         Transform3D rotation = new Transform3D();
-        rotation.rotX(-Math.PI / 8.0d);
-//        rotation.rotZ(-Math.PI / 2.0d);
-        rotation.mul(viewTransform);
-        universe.getViewingPlatform().getViewPlatformTransform().setTransform(
-                rotation);
-        universe.getViewingPlatform().getViewPlatformTransform().getTransform(
-                viewTransform);
+        rotation.rotX(Math.PI / 2.5d);
+//        rotation.rotY(Math.PI / 121d);
+//        rotation.rotZ(-Math.PI / 22.0d);
+//        rotation.mul(viewTransform);
+        universe.getViewingPlatform().getViewPlatformTransform().setTransform(rotation);
+        
 
         // lights
         BoundingSphere bounds = new BoundingSphere(new Point3d(3.0, 0.0, -20.0),
@@ -91,7 +77,7 @@ public class StartingPoint {
 
         universe.addBranchGraph(group);
 
-        universe.getViewingPlatform().setNominalViewingTransform();
+//        universe.getViewingPlatform().setNominalViewingTransform();
 
 
     }

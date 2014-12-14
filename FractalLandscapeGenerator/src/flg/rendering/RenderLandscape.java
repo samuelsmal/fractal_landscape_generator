@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.j3d.Appearance;
+import javax.media.j3d.ColoringAttributes;
 import javax.media.j3d.GeometryArray;
+import javax.media.j3d.LineArray;
 import javax.media.j3d.Material;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Texture;
@@ -22,7 +24,31 @@ import com.sun.j3d.utils.geometry.NormalGenerator;
 
 public class RenderLandscape {
 	public static Shape3D createLandscape(float[][] map) {
-		return renderLandscape(getTriangles(map));
+		return renderLandscapeGrid(getTriangles(map));
+	}
+
+	/**
+	 * GRID
+	 * 
+	 * @param triangles
+	 * @return
+	 */
+	public static Shape3D renderLandscapeGrid(List<Triangle> triangles) {
+		LineArray landscape = new LineArray(triangles.size() * 4, LineArray.COORDINATES);
+        int counter = 0;
+        for (int i = 0; i < triangles.size(); ++i) {
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate1());
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate2());
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate3());
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate1());
+        }
+        Color3f white = new Color3f(1.0f, 1.0f, 1.0f);
+        Appearance app = new Appearance();
+        ColoringAttributes ca = new ColoringAttributes(white,
+            ColoringAttributes.SHADE_FLAT);
+        app.setColoringAttributes(ca);
+
+        return new Shape3D(landscape, app);
 	}
 	
 
