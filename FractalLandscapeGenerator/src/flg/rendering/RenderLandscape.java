@@ -14,14 +14,14 @@ import javax.media.j3d.TextureAttributes;
 import javax.media.j3d.TriangleArray;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
-import javax.vecmath.Point3d;
+import javax.vecmath.Point3f;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 import com.sun.j3d.utils.geometry.NormalGenerator;
 
 
 public class RenderLandscape {
-	public static Shape3D createLandscape(double[][] map) {
+	public static Shape3D createLandscape(float[][] map) {
 		return renderLandscape(getTriangles(map));
 	}
 	
@@ -31,12 +31,13 @@ public class RenderLandscape {
      * @param triangles
      * @return
      */
-    private static Shape3D renderLandscape(List<Triangle> triangles) {
-        TriangleArray landscape = new TriangleArray((triangles.size() - 1) * 3, TriangleArray.COORDINATES);
-        for (int i = 0; i < triangles.size(); i += 3) {
-            landscape.setCoordinate(i, triangles.get(i).getCoordinate1());
-            landscape.setCoordinate(i + 1, triangles.get(i).getCoordinate2());
-            landscape.setCoordinate(i + 2, triangles.get(i).getCoordinate3());
+    public static Shape3D renderLandscape(List<Triangle> triangles) {
+        TriangleArray landscape = new TriangleArray(triangles.size() * 3, TriangleArray.COORDINATES);
+        int counter = 0;
+        for (int i = 0; i < triangles.size(); ++i) {
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate1());
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate2());
+            landscape.setCoordinate(counter++, triangles.get(i).getCoordinate3());
         }
 
         GeometryInfo geometryInfo = new GeometryInfo(landscape);
@@ -69,7 +70,7 @@ public class RenderLandscape {
      * @param map
      * @return
      */
-    private static List<Triangle> getTriangles(double[][] map) {
+    public static List<Triangle> getTriangles(float[][] map) {
 
         List<Triangle> ret = new ArrayList<>();
 
@@ -81,16 +82,16 @@ public class RenderLandscape {
         for (int x = 0; x < map.length; x++) {
             if (x % 2 == 0) {
                 for (int y = 0; y < (map[x].length - 1); y++) {
-                    Point3d coordinate1 = new Point3d(x, y, map[x][y]);
-                    Point3d coordinate2 = new Point3d(x, y + 1, map[x][y + 1]);
-                    Point3d coordinate3 = new Point3d(x + 1, y, map[x + 1][y]);
+                    Point3f coordinate1 = new Point3f((float)x, (float)y, map[x][y]);
+                    Point3f coordinate3 = new Point3f((float)x, (float)y + 1f, map[x][y + 1]);
+                    Point3f coordinate2 = new Point3f((float)x + 1f, (float)y, map[x + 1][y]);
                     ret.add(new Triangle(coordinate1, coordinate2, coordinate3));
                 }
             } else {
                 for (int y = 1; y < map[x].length; y++) {
-                    Point3d coordinate1 = new Point3d(x, y, map[x][y]);
-                    Point3d coordinate2 = new Point3d(x, y - 1, map[x][y - 1]);
-                    Point3d coordinate3 = new Point3d(x - 1, y, map[x - 1][y]);
+                    Point3f coordinate1 = new Point3f(x, y, map[x][y]);
+                    Point3f coordinate3 = new Point3f(x, y - 1, map[x][y - 1]);
+                    Point3f coordinate2 = new Point3f(x - 1, y, map[x - 1][y]);
                     ret.add(new Triangle(coordinate1, coordinate2, coordinate3));
                 }
             }
