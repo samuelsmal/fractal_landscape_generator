@@ -21,8 +21,8 @@ public class DiamondSquare {
 	}
 	
 	private static void diamondStep(float[][] points, Random rand, float roughness, int length) {
-		for (int i = 0; i < points.length; ++i) {
-			for (int j = 0; j < points.length; ++j) {
+		for (int i = 0; i < points.length; i += length) {
+			for (int j = 0; j < points.length; j += length) {
 				ArrayList<Float> parentValues = new ArrayList<Float>();
 				
 				if (i >= length / 2) {
@@ -51,8 +51,8 @@ public class DiamondSquare {
 	}
 	
 	private static void squareStep(float[][] points, Random rand, float roughness, int length) {
-		for (int i=0;i<points.length;++i){
-			for(int j=0; j<points.length;++j){
+		for (int i=0;i<points.length; i += length){
+			for(int j=0; j<points.length; j += length){
 				ArrayList<Float> values = new ArrayList<Float>();
 			
 				if (i >= length) {
