@@ -51,6 +51,52 @@ public class RenderLandscape {
         return new Shape3D(landscape, app);
 	}
 	
+	/**
+	 * GRID
+	 * 
+	 * @param triangles
+	 * @return
+	 */
+	public static Shape3D renderLandscapeGrid(float[][] map) {
+        ArrayList<Point3f> ps = new ArrayList<>();
+        
+        for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+				Point3f current_center = new Point3f(i, j, map[i][j]);
+				
+				if (i + 1 < map.length) {
+					ps.add(current_center);
+					ps.add(new Point3f(i + 1, j, map[i+1][j]));
+					
+					if (j + 1 < map[i].length) {
+						ps.add(current_center);
+						ps.add(new Point3f(i + 1, j + 1, map[i + 1][j + 1]));
+					}
+				}
+				
+				if (j + 1 < map[i].length) {
+					ps.add(current_center);
+					ps.add(new Point3f(i, j + 1, map[i][j + 1]));
+				}
+			}
+		}
+        
+        LineArray landscape = new LineArray(ps.size(), LineArray.COORDINATES);
+        int counter = 0;
+        
+        for (Point3f point3f : ps) {
+			landscape.setCoordinate(counter++, point3f);
+		}
+        
+        Color3f white = new Color3f(1.0f, 1.0f, 1.0f);
+        Appearance app = new Appearance();
+        ColoringAttributes ca = new ColoringAttributes(white,
+            ColoringAttributes.SHADE_FLAT);
+        app.setColoringAttributes(ca);
+
+        return new Shape3D(landscape, app);
+	}
+	
 
     /**
      *

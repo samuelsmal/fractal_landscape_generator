@@ -21,7 +21,6 @@ import flg.rendering.RenderLandscape;
 public class StartingPoint {
 
     public static void main(String[] args) {
-
         int dim = 300;
         float[][] map = new float[dim][dim];
         map[0][0] = map[0][dim - 1] = map[dim - 1][0] = map[dim - 1][dim - 1] = 12.0f;
@@ -42,33 +41,67 @@ public class StartingPoint {
 
         // Java 3D Model
         SimpleUniverse universe = new SimpleUniverse();
-        BranchGroup group = new BranchGroup();
 
-        group.addChild(RenderLandscape.createLandscape(map));
+        BranchGroup branchGroup = new BranchGroup();
+        
+        branchGroup.addChild(RenderLandscape.renderLandscapeGrid(map));
+        
+      	Transform3D mapTransform = new Transform3D();
+        mapTransform.setTranslation(new Vector3f (-(float)dim / 2f, -(float)dim / 2f, 20f));
+        
+        TransformGroup mapTransformGroup = new TransformGroup();
+        mapTransformGroup.setTransform(mapTransform);
+        
+        branchGroup.addChild(mapTransformGroup);
 
-        TransformGroup cctg = new TransformGroup();
-        Transform3D cc3d = new Transform3D();
-        cc3d.setTranslation(new Vector3f(0.8f, 1.0f, -2.0f));
-        cctg.setTransform(cc3d);
-        group.addChild(cctg);
-
-        // above pyramid
+//        Vector3f viewTranslation = new Vector3f();
+//        viewTranslation.x = -(float)dim * 40;
+//        viewTranslation.y = (float)dim * 40;
+//        viewTranslation.z = - 30;
+//        Transform3D viewTransform = new Transform3D();
+//        viewTransform.setTranslation(viewTranslation);
+//        universe.getViewingPlatform().getViewPlatformTransform().setTransform(viewTransform);
+//        
+//        Transform3D rotation = new Transform3D();
+//        rotation.rotX(- Math.PI / 4d);
+//        rotation.rotY(- Math.PI / 6d);
+//        rotation.rotZ(-Math.PI / 22.0d);
+//        rotation.mul(viewTransform);
+//        universe.getViewingPlatform().getViewPlatformTransform().setTransform(rotation);
+		
+		Transform3D transform3d = new Transform3D();
+		transform3d.rotX(-3d * Math.PI / 4d);
+		
+		Transform3D r2 = new Transform3D();
+		r2.rotY(-Math.PI / 8.0d);
+		transform3d.mul(r2);
+		
+		Transform3D r3 = new Transform3D();
+		r3.rotZ(-Math.PI / 8.0d);
+		transform3d.mul(r3);
+//		
+//		Transform3D r4 = new Transform3D();
+//		r4.rotX(-3*Math.PI / 12.0d);
+//		transform3d.mul(r4);
+//		
         Vector3f viewTranslation = new Vector3f();
-        viewTranslation.x = -(float) dim * 40;
-        viewTranslation.y = (float) dim * 40;
-        // viewTranslation.z = - 30;
-        Transform3D viewTransform = new Transform3D();
-        viewTransform.setTranslation(viewTranslation);
-        universe.getViewingPlatform().getViewPlatformTransform().setTransform(viewTransform);
-
-        Transform3D rotation = new Transform3D();
-        rotation.rotX(Math.PI / 2.5d);
-        // rotation.rotY(Math.PI / 121d);
-        // rotation.rotZ(-Math.PI / 22.0d);
-        // rotation.mul(viewTransform);
-        universe.getViewingPlatform().getViewPlatformTransform().setTransform(rotation);
-
-
+		viewTranslation.z = (float)dim;
+		viewTranslation.x = (float)dim / 2f;
+		viewTranslation.y = -(float)dim / 2.5f;
+		Transform3D viewTransform = new Transform3D();
+		viewTransform.setTranslation(viewTranslation);
+		
+		transform3d.mul(viewTransform);
+		
+		transform3d.setScale(5.5d);
+		
+		universe.getViewingPlatform().getViewPlatformTransform().setTransform(
+				transform3d);
+		universe.getViewingPlatform().getViewPlatformTransform().getTransform(
+				viewTransform);
+        
+//      universe.getViewingPlatform().setNominalViewingTransform();
+		
         // lights
         BoundingSphere bounds = new BoundingSphere(new Point3d(3.0, 0.0, -20.0),
                 1000.0);
@@ -77,17 +110,12 @@ public class StartingPoint {
         Vector3f light1Direction = new Vector3f(-4.0f, -7.0f, -12.0f);
         DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
         light1.setInfluencingBounds(bounds);
-        group.addChild(light1);
-
+        branchGroup.addChild(light1);
         Color3f ambientColor = new Color3f(.3f, .4f, .7f);
         AmbientLight ambientLightNode = new AmbientLight(ambientColor);
         ambientLightNode.setInfluencingBounds(bounds);
-        group.addChild(ambientLightNode);
+        branchGroup.addChild(ambientLightNode);
 
-        universe.addBranchGraph(group);
-
-        // universe.getViewingPlatform().setNominalViewingTransform();
-
-
+        universe.addBranchGraph(branchGroup);
     }
 }
