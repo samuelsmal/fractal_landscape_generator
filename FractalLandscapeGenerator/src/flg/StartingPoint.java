@@ -13,8 +13,9 @@ import javax.vecmath.Vector3f;
 
 import com.sun.j3d.utils.universe.SimpleUniverse;
 
+import flg.algorithm.DSA;
 import flg.algorithm.DiamondSquare;
-import flg.algorithm.Map;
+import flg.algorithm.Util;
 import flg.rendering.HeatMap;
 import flg.rendering.RenderLandscape;
 
@@ -22,12 +23,14 @@ import flg.rendering.RenderLandscape;
 public class StartingPoint {
 
     public static void main(String[] args) {
-        int dim = 300;
-//        float[][] map = Map.hillCenterMap(dim, 0f, 12f);
-        
-        
-        float[][] map = Map.hillCenterMap(dim, 144f, 12f);
-        DiamondSquare.applyDiamondSquare(map, 3.7f);
+        int dim = Util.pow(2, 6) + 1;
+//      double[][] map = Map.hillCenterMap(dim, 0d, 144d);
+
+        float[][] map = DSA.getMap(dim, 13f);
+
+        System.out.println(map[0][0]);
+        DiamondSquare.applyDiamondSquare(map, 6f);
+        System.out.println("diamond square completed");
 
         // Heat Map
         HeatMap heatmap = new HeatMap(map);
@@ -45,15 +48,15 @@ public class StartingPoint {
         SimpleUniverse universe = new SimpleUniverse();
 
         BranchGroup branchGroup = new BranchGroup();
-        
+
         branchGroup.addChild(RenderLandscape.renderLandscapeGrid(map));
-        
-      	Transform3D mapTransform = new Transform3D();
-        mapTransform.setTranslation(new Vector3f (-(float)dim / 2f, -(float)dim / 2f, 20f));
-        
+
+        Transform3D mapTransform = new Transform3D();
+        mapTransform.setTranslation(new Vector3f(-(float) dim / 2f, -(float) dim / 2f, 20f));
+
         TransformGroup mapTransformGroup = new TransformGroup();
         mapTransformGroup.setTransform(mapTransform);
-        
+
         branchGroup.addChild(mapTransformGroup);
 
 //        Vector3f viewTranslation = new Vector3f();
@@ -63,47 +66,47 @@ public class StartingPoint {
 //        Transform3D viewTransform = new Transform3D();
 //        viewTransform.setTranslation(viewTranslation);
 //        universe.getViewingPlatform().getViewPlatformTransform().setTransform(viewTransform);
-//        
+//
 //        Transform3D rotation = new Transform3D();
 //        rotation.rotX(- Math.PI / 4d);
 //        rotation.rotY(- Math.PI / 6d);
 //        rotation.rotZ(-Math.PI / 22.0d);
 //        rotation.mul(viewTransform);
 //        universe.getViewingPlatform().getViewPlatformTransform().setTransform(rotation);
-		
-		Transform3D transform3d = new Transform3D();
-		transform3d.rotX(-3d * Math.PI / 4d);
-		
-		Transform3D r2 = new Transform3D();
-		r2.rotY(-Math.PI / 8.0d);
-		transform3d.mul(r2);
-		
-		Transform3D r3 = new Transform3D();
-		r3.rotZ(-Math.PI / 8.0d);
-		transform3d.mul(r3);
-//		
+
+        Transform3D transform3d = new Transform3D();
+        transform3d.rotX(-3d * Math.PI / 4d);
+
+        Transform3D r2 = new Transform3D();
+        r2.rotY(-Math.PI / 8.0d);
+        transform3d.mul(r2);
+
+        Transform3D r3 = new Transform3D();
+        r3.rotZ(-Math.PI / 8.0d);
+        transform3d.mul(r3);
+//
 //		Transform3D r4 = new Transform3D();
 //		r4.rotX(-3*Math.PI / 12.0d);
 //		transform3d.mul(r4);
-//		
+//
         Vector3f viewTranslation = new Vector3f();
-		viewTranslation.z = (float)dim;
-		viewTranslation.x = (float)dim / 2f;
-		viewTranslation.y = -(float)dim / 2.5f;
-		Transform3D viewTransform = new Transform3D();
-		viewTransform.setTranslation(viewTranslation);
-		
-		transform3d.mul(viewTransform);
-		
-		transform3d.setScale(5.5d);
-		
-		universe.getViewingPlatform().getViewPlatformTransform().setTransform(
-				transform3d);
-		universe.getViewingPlatform().getViewPlatformTransform().getTransform(
-				viewTransform);
-        
+        viewTranslation.z = dim;
+        viewTranslation.x = dim / 2f;
+        viewTranslation.y = -(float) dim / 2.5f;
+        Transform3D viewTransform = new Transform3D();
+        viewTransform.setTranslation(viewTranslation);
+
+        transform3d.mul(viewTransform);
+
+        transform3d.setScale(5.5d);
+
+        universe.getViewingPlatform().getViewPlatformTransform().setTransform(
+                transform3d);
+        universe.getViewingPlatform().getViewPlatformTransform().getTransform(
+                viewTransform);
+
 //      universe.getViewingPlatform().setNominalViewingTransform();
-		
+
         // lights
         BoundingSphere bounds = new BoundingSphere(new Point3d(3.0, 0.0, -20.0),
                 1000.0);

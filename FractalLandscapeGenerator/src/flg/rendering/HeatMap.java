@@ -5,19 +5,25 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import flg.algorithm.Util;
+
 
 public class HeatMap
-extends JPanel {
+        extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
     public final static int   PIXEL_SIZE       = 3;
 
     private float[][]         heights;
+    float                     max;
+    float                     min;
 
     public HeatMap(float[][] heights) {
         super();
         this.heights = heights;
+        max = Util.getMax(heights);
+        min = Util.getMin(heights);
     }
 
     @Override
@@ -43,10 +49,10 @@ extends JPanel {
                 } else if (height > 0 && height <= 1.6) {
                     g.setColor(Color.decode("#2eea1c")); // brighter green
                     g.fillRect(x, y, PIXEL_SIZE, PIXEL_SIZE);
-                } else if (height > 1.6 && height <= 2.75) {
+                } else if (height > 1.6 && height <= 20) {
                     g.setColor(Color.GRAY);
                     g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, true);
-                } else if (height > 2.75) {
+                } else if (height > 20) {
                     g.setColor(Color.WHITE);
                     g.fill3DRect(x, y, PIXEL_SIZE, PIXEL_SIZE, true);
                 }
